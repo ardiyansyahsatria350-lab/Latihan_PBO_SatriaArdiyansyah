@@ -17,13 +17,20 @@ class TiketVelvet extends Tiket {
         $this->layananButler = $layananButler;
     }
 
-    // Implementasi abstract method dari class induk
+    // Overriding method dari class induk dengan surcharge premium 50%
     public function hitungTotalHarga() {
-        return $this->hargaDasarTiket * $this->jumlah_kursi;
+        return ($this->hargaDasarTiket * $this->jumlah_kursi) * 1.50;
     }
 
     public function tampilkanInfoFasilitas() {
         $statusBantal = $this->bantalSelimutPack ? "Termasuk Pack Bantal & Selimut" : "Tanpa Bantal & Selimut";
         return "Fasilitas Velvet: " . $statusBantal . ", Layanan Butler: " . $this->layananButler;
     }
+
+    // Fungsi statis untuk mengambil data khusus Velvet dari database
+    public static function selectWeb($koneksi) {
+        $sql = "SELECT * FROM tabel_tiket WHERE jenis_studio = 'velvet'";
+        return $koneksi->query($sql);
+    }
+
 }

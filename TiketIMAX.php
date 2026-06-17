@@ -17,12 +17,19 @@ class TiketIMAX extends Tiket {
         $this->efekGerakFitur = $efekGerakFitur;
     }
 
-    // Implementasi abstract method dari class induk
+    // Overriding method dari class induk dengan tambahan biaya IMAX
     public function hitungTotalHarga() {
-        return $this->hargaDasarTiket * $this->jumlah_kursi;
+        return ($this->hargaDasarTiket * $this->jumlah_kursi) + 35000;
     }
 
     public function tampilkanInfoFasilitas() {
         return "Fasilitas IMAX: Kacamata 3D ID [" . $this->kacamata3did . "], Fitur Efek Gerak: " . $this->efekGerakFitur;
     }
+
+    // Fungsi statis untuk mengambil data khusus IMAX dari database
+    public static function selectWeb($koneksi) {
+        $sql = "SELECT * FROM tabel_tiket WHERE jenis_studio = 'imax'";
+        return $koneksi->query($sql);
+    }
+
 }

@@ -17,7 +17,7 @@ class TiketRegular extends Tiket {
         $this->lokasiBaris = $lokasiBaris;
     }
 
-    // Implementasi abstract method dari class induk
+    // Overriding method dari class induk
     public function hitungTotalHarga() {
         return $this->hargaDasarTiket * $this->jumlah_kursi;
     }
@@ -25,4 +25,11 @@ class TiketRegular extends Tiket {
     public function tampilkanInfoFasilitas() {
         return "Fasilitas Regular: Audio " . $this->tipeAudio . ", Kursi di Baris " . $this->lokasiBaris;
     }
+
+    // Fungsi statis untuk mengambil data khusus Regular dari database
+    public static function selectWeb($koneksi) {
+        $sql = "SELECT * FROM tabel_tiket WHERE jenis_studio = 'regular'";
+        return $koneksi->query($sql);
+    }
+    
 }
